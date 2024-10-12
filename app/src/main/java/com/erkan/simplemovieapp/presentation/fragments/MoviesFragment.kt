@@ -1,12 +1,6 @@
 package com.erkan.simplemovieapp.presentation.fragments
 
-import android.os.Bundle
-import android.transition.TransitionInflater
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.doOnPreDraw
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.erkan.simplemovieapp.R
@@ -25,18 +19,6 @@ class MoviesFragment :
     private val movieAdapter = MovieAdapter(
         onItemClick = this::onItemClick
     )
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val animation =
-            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
-        sharedElementEnterTransition = animation
-
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
 
     override fun initialize() {
         binding.recyclerMovies.adapter = movieAdapter.withLoadStateFooter(
@@ -59,14 +41,11 @@ class MoviesFragment :
 
     }
 
-    private fun onItemClick(movie: MoviesUI.Result, image: View) {
+    private fun onItemClick(movie: MoviesUI.Result) {
         val directions =
             MoviesFragmentDirections.actionFirstFragmentToSecondFragment(
                 movie
             )
-        val extras = FragmentNavigatorExtras(
-            image to movie.posterPath
-        )
-        findNavController().navigate(directions, extras)
+        findNavController().navigate(directions)
     }
 }

@@ -2,19 +2,17 @@ package com.erkan.simplemovieapp.presentation.adapters
 
 import android.content.res.Configuration
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.erkan.simplemovieapp.databinding.ItemMovieBinding
 import com.erkan.simplemovieapp.ext.loadImageWithGlide
-import com.erkan.simplemovieapp.ext.toFullImageUrl
 import com.erkan.simplemovieapp.presentation.base.BaseDiffUtil
 import com.erkan.simplemovieapp.presentation.models.MoviesUI
 
 class MovieAdapter(
-    private val onItemClick: (MoviesUI.Result, View) -> Unit,
+    private val onItemClick: (MoviesUI.Result) -> Unit,
 ) :
     PagingDataAdapter<MoviesUI.Result, MovieAdapter.AnimeViewHolder>(Companion) {
 
@@ -34,7 +32,7 @@ class MovieAdapter(
             checkForOrientation(data)
             binding.imageMovie.transitionName = data.posterPath
             itemView.setOnClickListener {
-                onItemClick(data, binding.imageMovie)
+                onItemClick(data)
             }
         }
 
