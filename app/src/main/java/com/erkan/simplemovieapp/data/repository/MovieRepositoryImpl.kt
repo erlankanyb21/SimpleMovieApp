@@ -9,7 +9,6 @@ import com.erkan.simplemovieapp.data.base.BaseRepository
 import com.erkan.simplemovieapp.data.local.db.MovieDao
 import com.erkan.simplemovieapp.data.local.models.toDomain
 import com.erkan.simplemovieapp.data.network.MovieApiService
-import com.erkan.simplemovieapp.data.network.pagingSource.MoviePagingSource
 import com.erkan.simplemovieapp.data.network.pagingSource.MovieRemoteMediator
 import com.erkan.simplemovieapp.domain.models.Movies
 import com.erkan.simplemovieapp.domain.repository.MovieRepository
@@ -33,4 +32,7 @@ class MovieRepositoryImpl(
         ).flow.map { pagingData ->
             pagingData.map { it.toDomain() }
         }
+
+    override fun insertMovie(movie: Movies.Result) {
+    }
 }

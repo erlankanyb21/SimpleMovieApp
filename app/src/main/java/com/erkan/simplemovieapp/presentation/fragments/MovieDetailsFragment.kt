@@ -1,5 +1,7 @@
 package com.erkan.simplemovieapp.presentation.fragments
 
+import android.transition.TransitionInflater
+import androidx.core.view.doOnPreDraw
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -16,6 +18,8 @@ class MovieDetailsFragment :
     private val args by navArgs<MovieDetailsFragmentArgs>()
 
     override fun initialize() {
+        binding.imagePoster.transitionName = args.movie.posterPath
+        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
         bindViews()
     }
 

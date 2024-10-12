@@ -10,9 +10,8 @@ fun ImageView.loadImageWithGlide(url: String?) =
     Glide.with(this)
         .load(url.toFullImageUrl())
         .centerCrop()
-        .placeholder(R.drawable.placeholder_movie)
-        .error(R.drawable.ic_error)
-        .transition(DrawableTransitionOptions.withCrossFade())
+        .transition(DrawableTransitionOptions.withCrossFade(500))
+        .dontAnimate()
         .into(this)
 
 fun String?.toFullImageUrl(size: String = Constants.IMAGE_SIZE_W500): String? {

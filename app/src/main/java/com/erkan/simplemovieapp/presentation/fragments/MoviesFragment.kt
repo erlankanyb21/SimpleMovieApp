@@ -1,6 +1,9 @@
 package com.erkan.simplemovieapp.presentation.fragments
 
+import android.view.View
+import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -27,6 +30,11 @@ class MoviesFragment :
             footer = MainLoadStateAdapter()
         )
 
+        postponeEnterTransition()
+        binding.recyclerMovies.doOnPreDraw {
+            startPostponedEnterTransition()
+        }
+
         binding.swipeRefresh.setOnRefreshListener {
             movieAdapter.refresh()
         }
@@ -45,11 +53,16 @@ class MoviesFragment :
         }
     }
 
-    private fun onItemClick(movie: MoviesUI.Result) {
+    private fun onItemClick(movie: MoviesUI.Result, view: View) {
         val directions =
             MoviesFragmentDirections.actionFirstFragmentToSecondFragment(
                 movie
             )
-        findNavController().navigate(directions)
+
+        val extras = FragmentNavigatorExtras(
+            view to movie.posterPath
+        )
+
+        findNavController().navigate(directions, extras)
     }
 }

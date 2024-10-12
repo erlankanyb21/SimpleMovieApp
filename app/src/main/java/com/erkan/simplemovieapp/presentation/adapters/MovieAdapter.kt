@@ -2,17 +2,21 @@ package com.erkan.simplemovieapp.presentation.adapters
 
 import android.content.res.Configuration
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import com.erkan.simplemovieapp.R
 import com.erkan.simplemovieapp.databinding.ItemMovieBinding
 import com.erkan.simplemovieapp.ext.loadImageWithGlide
+import com.erkan.simplemovieapp.ext.toFullImageUrl
 import com.erkan.simplemovieapp.presentation.base.BaseDiffUtil
 import com.erkan.simplemovieapp.presentation.models.MoviesUI
 
 class MovieAdapter(
-    private val onItemClick: (MoviesUI.Result) -> Unit,
+    private val onItemClick: (MoviesUI.Result, View) -> Unit,
 ) :
     PagingDataAdapter<MoviesUI.Result, MovieAdapter.AnimeViewHolder>(Companion) {
 
@@ -32,12 +36,21 @@ class MovieAdapter(
             checkForOrientation(data)
             binding.imageMovie.transitionName = data.posterPath
             itemView.setOnClickListener {
-                onItemClick(data)
+                onItemClick(data, binding.imageMovie)
             }
         }
 
         private fun bindingItems(data: MoviesUI.Result) = with(binding) {
-            imageMovie.loadImageWithGlide(data.posterPath)
+            imageMovie.load(data.posterPath.toFullImageUrl()) {
+                listener { _, _ ->
+                    progressBar.isVisible = false
+                }
+                crossfade(true)
+                crossfade(1500)
+                placeholder(R.drawable.placeholder_movie)
+                error(R.drawable.ic_error)
+                scale(coil.size.Scale.FILL)
+            }
             textYear.text = data.releaseDate
             textTitle.text = data.title
             chipRating.text = data.voteAverage.toString().take(3)
