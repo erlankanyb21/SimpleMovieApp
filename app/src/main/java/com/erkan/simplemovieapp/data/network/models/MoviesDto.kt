@@ -1,4 +1,4 @@
-package com.erkan.simplemovieapp.data.models
+package com.erkan.simplemovieapp.data.network.models
 
 
 import com.erkan.simplemovieapp.common.DataMapper

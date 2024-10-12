@@ -1,7 +1,8 @@
 package com.erkan.simplemovieapp.presentation.fragments
 
-import androidx.core.view.doOnPreDraw
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.erkan.simplemovieapp.R
 import com.erkan.simplemovieapp.databinding.FragmentMoviesBinding
@@ -9,6 +10,7 @@ import com.erkan.simplemovieapp.presentation.adapters.MainLoadStateAdapter
 import com.erkan.simplemovieapp.presentation.adapters.MovieAdapter
 import com.erkan.simplemovieapp.presentation.base.BaseFragment
 import com.erkan.simplemovieapp.presentation.models.MoviesUI
+import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MoviesFragment :
@@ -25,20 +27,22 @@ class MoviesFragment :
             footer = MainLoadStateAdapter()
         )
 
-        postponeEnterTransition()
-        binding.recyclerMovies.doOnPreDraw {
-            startPostponedEnterTransition()
+        binding.swipeRefresh.setOnRefreshListener {
+            movieAdapter.refresh()
         }
     }
 
     override fun establishRequest() {
-        viewModel.pagingAnime().collectPaging {
+        viewModel.pagingMovies().collectPaging {
             movieAdapter.submitData(it)
         }
-    }
 
-    override fun initListeners() {
-
+        collectFlowWithLifeCycleAwareness {
+            movieAdapter.loadStateFlow.collectLatest { loadStates ->
+                binding.swipeRefresh.isRefreshing = loadStates.refresh is LoadState.Loading
+                binding.loadingProgress.isVisible = loadStates.refresh is LoadState.Loading
+            }
+        }
     }
 
     private fun onItemClick(movie: MoviesUI.Result) {

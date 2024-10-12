@@ -78,10 +78,12 @@ coroutine-coroutineCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 room-room_ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 room-ksp = { module = "androidx.room:room-compiler", version.ref = "room" }
+room-paging = { module = "androidx.room:room-paging", version.ref = "room" }
 
 #paging
 paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "paging" }
 paging-common = { module = "androidx.paging:paging-common", version.ref = "paging" }
+room-paging-runtime = { module = "androidx.paging:paging-runtime-ktx", version.ref = "paging" }
 
 #Koin
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
@@ -107,7 +109,7 @@ org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org
 
 [bundles]
 
-uicomponents = ["uicomponents-viewBindingPropertyDelegate","uicomponents-coil",
+uicomponents = ["uicomponents-viewBindingPropertyDelegate", "uicomponents-coil",
     "uicomponents-glide", "uicomponents-splashscreen"]
 
 #coroutine
@@ -126,5 +128,5 @@ koin = ["koin-core", "koin-android"]
 paging = ["paging-runtime", "paging-common"]
 
 #room
-room = ["room-runtime", "room-room_ktx"]
+room = ["room-runtime", "room-room_ktx", "room-paging", "room-paging-runtime"]
 

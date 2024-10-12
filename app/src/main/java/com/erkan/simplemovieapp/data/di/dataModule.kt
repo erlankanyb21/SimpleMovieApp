@@ -1,6 +1,9 @@
 package com.erkan.simplemovieapp.data.di
 
+import android.content.Context
+import androidx.room.Room
 import com.erkan.simplemovieapp.BuildConfig
+import com.erkan.simplemovieapp.data.local.db.MovieDatabase
 import com.erkan.simplemovieapp.data.network.MovieApiService
 import com.erkan.simplemovieapp.domain.repository.MovieRepository
 import com.erkan.simplemovieapp.data.repository.MovieRepositoryImpl
@@ -17,9 +20,21 @@ import java.util.concurrent.TimeUnit
 val dataModule = module {
     factoryOf(::provideOkhttp)
     singleOf(::provideMovieApiService)
-
-    singleOf(::MovieRepositoryImpl) { bind<MovieRepository>() }
+    singleOf(::MovieRepositoryImpl) {
+        bind<MovieRepository>()
+    }
+    singleOf(::provideMovieDatabase)
+    factoryOf(::provideMovieDao)
 }
+
+fun provideMovieDatabase(context: Context): MovieDatabase {
+    return Room.databaseBuilder(context, MovieDatabase::class.java, "movie_db")
+        .allowMainThreadQueries()
+        .fallbackToDestructiveMigration()
+        .build()
+}
+
+fun provideMovieDao(movieDatabase: MovieDatabase) = movieDatabase.movieDao()
 
 fun provideOkhttp(): OkHttpClient {
     val interceptor = HttpLoggingInterceptor()

@@ -32,9 +32,7 @@ class MovieDetailsFragment :
     }
 
     override fun initListeners() {
-        binding.buttonBack.setOnClickListener {
-            findNavController().popBackStack()
-        }
+
     }
 
     override fun establishRequest() {

@@ -62,7 +62,7 @@ abstract class BaseFragment<ViewModel : BaseViewModel, Binding : ViewBinding>(
         lifecycleState: Lifecycle.State = Lifecycle.State.STARTED,
         action: suspend (value: PagingData<T>) -> Unit
     ) {
-        safeFlowGather(lifecycleState) { this.collectLatest { action(it) } }
+        collectFlowWithLifeCycleAwareness(lifecycleState) { this.collectLatest { action(it) } }
     }
 
     /**
@@ -70,7 +70,7 @@ abstract class BaseFragment<ViewModel : BaseViewModel, Binding : ViewBinding>(
      * @param lifecycleState состояние жизненного цикла, на котором будет происходить сбор данных.
      * @param action действие, которое будет выполняться при сборе данных.
      */
-    protected fun safeFlowGather(
+    protected fun collectFlowWithLifeCycleAwareness(
         lifecycleState: Lifecycle.State = Lifecycle.State.STARTED, action: suspend () -> Unit
     ) {
         viewLifecycleOwner.lifecycleScope.launch {
@@ -107,7 +107,7 @@ abstract class BaseFragment<ViewModel : BaseViewModel, Binding : ViewBinding>(
         idle: ((idle: UIState.Idle<T>) -> Unit)? = null,
         gatherIfSucceed: ((state: UIState<T>) -> Unit)? = null,
     ) {
-        safeFlowGather(lifecycleState) {
+        collectFlowWithLifeCycleAwareness(lifecycleState) {
             collect {
                 gatherIfSucceed?.invoke(it)
                 when (it) {

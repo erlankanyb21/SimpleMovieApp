@@ -6,4 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {
     fun fetchMovies(): Flow<PagingData<Movies.Result>>
+    fun insertMovie(movie: Movies.Result)
 }

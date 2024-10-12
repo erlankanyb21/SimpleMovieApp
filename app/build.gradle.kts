@@ -2,8 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id(libs.plugins.navSafeArgs.get().pluginId)
-    alias(libs.plugins.ksp)
+//    alias(libs.plugins.ksp)
     id("kotlin-parcelize")
+    id("kotlin-kapt")
 }
 
 android {
@@ -69,6 +70,6 @@ dependencies {
     implementation(libs.bundles.paging)
 
     implementation(libs.bundles.room)
-    ksp(libs.room.ksp)
-    ksp(libs.uicomponents.glide.ksp)
+    kapt(libs.room.ksp)
+    kapt(libs.uicomponents.glide.ksp)
 }

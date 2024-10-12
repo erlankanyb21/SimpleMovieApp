@@ -1,7 +1,7 @@
 package com.erkan.simplemovieapp.data.network
 
 import com.erkan.simplemovieapp.BuildConfig
-import com.erkan.simplemovieapp.data.models.MoviesDto
+import com.erkan.simplemovieapp.data.network.models.MoviesDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 

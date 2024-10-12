@@ -1,6 +1,7 @@
 package com.erkan.simplemovieapp.presentation.models
 
 import android.os.Parcelable
+import com.erkan.simplemovieapp.domain.models.Movies
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -28,3 +29,27 @@ data class MoviesUI(
         val voteCount: Int = 0,
     ) : Parcelable
 }
+
+fun Movies.toUI(): MoviesUI = MoviesUI(
+    page = page,
+    results = results.map { it.toUI() },
+    totalPages = totalPages,
+    totalResults = totalResults
+)
+
+fun Movies.Result.toUI(): MoviesUI.Result = MoviesUI.Result(
+    adult,
+    backdropPath,
+    genreIds,
+    id,
+    originalLanguage,
+    originalTitle,
+    overview,
+    popularity,
+    posterPath,
+    releaseDate,
+    title,
+    video,
+    voteAverage,
+    voteCount
+)
