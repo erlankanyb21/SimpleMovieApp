@@ -1,0 +1,130 @@
+[versions]
+agp = "8.7.0"
+kotlin = "2.0.20"
+coreKtx = "1.13.1"
+junit = "4.13.2"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+appcompat = "1.7.0"
+material = "1.12.0"
+constraintlayout = "2.1.4"
+navigationFragmentKtx = "2.8.2"
+navigationUiKtx = "2.8.2"
+org-jetbrains-kotlin-jvm = "2.0.10"
+lifecycle-runtime-ktx = "2.8.6"
+
+#viewbindingpropertydelegate
+viewbindingpropertydelegate = "1.5.6"
+
+#Coil
+coil = "2.5.0"
+
+#retro
+retrofit = "2.9.0"
+
+#OkHttp
+okHttp = "5.0.0-alpha.10"
+
+#navSafeArgs
+navSafeArgs = "2.8.2"
+
+#kotlinCoroutine
+kotlinCoroutine = "1.7.3"
+
+#splash
+splash = "1.0.1"
+#room
+room = "2.6.1"
+
+ksp = "2.0.20-1.0.25"
+
+#glide
+glide = "4.16.0"
+
+#koin
+koin = "3.5.0"
+koinCompiler = "1.2.0"
+
+#paging
+paging = "3.3.2"
+swiperefreshlayout = "1.1.0"
+
+[libraries]
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
+lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
+lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle-runtime-ktx" }
+
+#Retrofit
+retrofit-Realretrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-gsonConverter = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+
+#OkHttp
+okHttp-okHttp = { module = "com.squareup.okhttp3:okhttp" }
+okHttp-loggingInterceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okHttp" }
+
+#coroutine
+coroutine-coroutinesAndroid = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinCoroutine" }
+coroutine-coroutineCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinCoroutine" }
+
+#room
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-room_ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+room-ksp = { module = "androidx.room:room-compiler", version.ref = "room" }
+
+#paging
+paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "paging" }
+paging-common = { module = "androidx.paging:paging-common", version.ref = "paging" }
+
+#Koin
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+
+#UI
+uicomponents-viewBindingPropertyDelegate = { module = "com.github.kirich1409:viewbindingpropertydelegate-noreflection", version.ref = "viewbindingpropertydelegate" }
+uicomponents-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splash" }
+uicomponents-coil = { module = "io.coil-kt:coil", version.ref = "coil" }
+uicomponents-glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+uicomponents-glide-ksp = { module = "com.github.bumptech.glide:ksp", version.ref = "glide" }
+
+androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+navSafeArgs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "navSafeArgs" }
+com-android-library = { id = "com.android.library", version.ref = "agp" }
+org-jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+org-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "org-jetbrains-kotlin-jvm" }
+
+[bundles]
+
+uicomponents = ["uicomponents-viewBindingPropertyDelegate","uicomponents-coil",
+    "uicomponents-glide", "uicomponents-splashscreen"]
+
+#coroutine
+coroutine = ["coroutine-coroutinesAndroid", "coroutine-coroutineCore"]
+
+#Retrofit
+retrofit = ["retrofit-Realretrofit", "retrofit-gsonConverter"]
+
+#OkHttp
+okHttp = ["okHttp-loggingInterceptor", "okHttp-okHttp"]
+
+#koin
+koin = ["koin-core", "koin-android"]
+
+#paging
+paging = ["paging-runtime", "paging-common"]
+
+#room
+room = ["room-runtime", "room-room_ktx"]
+

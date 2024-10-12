@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Фоновый цвет -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="?attr/colorSurfaceVariant" />
+        </shape>
+    </item>
+
+    <!-- Контейнер с иконкой и текстом -->
+    <item android:gravity="center">
+        <vector
+            android:width="120dp"
+            android:height="120dp"
+            android:viewportWidth="100"
+            android:viewportHeight="100">
+
+            <!-- Круг фона -->
+            <path
+                android:fillColor="?attr/colorSurfaceContainerHigh"
+                android:pathData="M50,50m-40,0a40,40 0,1 1,80 0a40,40 0,1 1,-80 0"/>
+
+            <!-- Иконка -->
+            <path
+                android:fillColor="?attr/colorOnSurfaceVariant"
+                android:pathData="M40,35 L60,35 L60,40 L55,40 L55,42.5 L45,42.5 L45,40 L40,40 Z"/>
+            <path
+                android:fillColor="?attr/colorOnSurfaceVariant"
+                android:pathData="M38,45 L62,45 L65,65 L35,65 Z"/>
+            <path
+                android:fillColor="?attr/colorError"
+                android:pathData="M45,52.5 L47.5,52.5 L47.5,57.5 L45,57.5 Z"/>
+            <path
+                android:fillColor="?attr/colorError"
+                android:pathData="M52.5,52.5 L55,52.5 L55,57.5 L52.5,57.5 Z"/>
+
+            <!-- Восклицательный знак -->
+            <path
+                android:fillColor="?attr/colorError"
+                android:pathData="M65,30 L70,35 L65,40 L60,35 Z"/>
+        </vector>
+    </item>
+</layer-list>
