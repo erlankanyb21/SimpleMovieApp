@@ -3,7 +3,9 @@ package com.erkan.simplemovieapp.data.base
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingSource
+import com.erkan.simplemovieapp.R
 import com.erkan.simplemovieapp.common.Either
+import com.erkan.simplemovieapp.domain.models.FavoriteMovie
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
@@ -16,6 +18,32 @@ abstract class BaseRepository {
             emit(Either.Right(action()))
         } catch (e: Exception) {
             emit(Either.Left(e.localizedMessage as String))
+        }
+    }
+
+    protected fun <T, R> makeSafeCall(
+        daoCall: () -> Flow<List<T>>,
+        domainMapper: (T) -> R
+    ): Flow<Either<String, List<R>>> {
+        return try {
+            daoCall.invoke().map {
+                Either.Right(it.map(domainMapper))
+            }
+        } catch (e: Exception) {
+            flowOf(Either.Left(e.localizedMessage ?: "Unknown error"))
+        }
+    }
+
+    protected fun <T> makeRequest(
+        moveId: Int,
+        daoCall: (Int) -> Flow<T>,
+    ): Flow<Either<String, T>> {
+        return try {
+            daoCall.invoke(moveId).map {
+                Either.Right(it)
+            }
+        } catch (e: Exception) {
+            flowOf(Either.Left(e.localizedMessage ?: "Unknown error"))
         }
     }
 
