@@ -7,6 +7,8 @@ import com.erkan.simplemovieapp.data.local.db.MovieDatabase
 import com.erkan.simplemovieapp.data.network.MovieApiService
 import com.erkan.simplemovieapp.domain.repository.MovieRepository
 import com.erkan.simplemovieapp.data.repository.MovieRepositoryImpl
+import com.erkan.simplemovieapp.data.repository.FavoriteMovieRepositoryImpl
+import com.erkan.simplemovieapp.domain.repository.FavoriteMovieRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.module.dsl.bind
@@ -23,8 +25,12 @@ val dataModule = module {
     singleOf(::MovieRepositoryImpl) {
         bind<MovieRepository>()
     }
+    singleOf(::FavoriteMovieRepositoryImpl) {
+        bind<FavoriteMovieRepository>()
+    }
     singleOf(::provideMovieDatabase)
     factoryOf(::provideMovieDao)
+    factoryOf(::provideFavoriteMovieDao)
 }
 
 fun provideMovieDatabase(context: Context): MovieDatabase {
@@ -35,6 +41,7 @@ fun provideMovieDatabase(context: Context): MovieDatabase {
 }
 
 fun provideMovieDao(movieDatabase: MovieDatabase) = movieDatabase.movieDao()
+fun provideFavoriteMovieDao(movieDatabase: MovieDatabase) = movieDatabase.favoriteMovieDao()
 
 fun provideOkhttp(): OkHttpClient {
     val interceptor = HttpLoggingInterceptor()

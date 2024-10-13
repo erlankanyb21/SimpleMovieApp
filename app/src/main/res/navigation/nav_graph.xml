@@ -33,4 +33,13 @@
             android:name="movie"
             app:argType="com.erkan.simplemovieapp.presentation.models.MoviesUI$Result" />
     </fragment>
+    <fragment
+        android:id="@+id/favoriteMoviesFragment"
+        android:name="com.erkan.simplemovieapp.presentation.fragments.FavoriteMoviesFragment"
+        android:label="fragment_favorite_movies"
+        tools:layout="@layout/fragment_favorite_movies" >
+        <action
+            android:id="@+id/action_favoriteMoviesFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+    </fragment>
 </navigation>

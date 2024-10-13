@@ -10,6 +10,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.isVisible
 import com.erkan.simplemovieapp.R
 import com.erkan.simplemovieapp.databinding.ActivityMainBinding
 
@@ -31,10 +32,19 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         setupActionBarWithNavController(navController)
 
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null)
-                .setAnchorView(R.id.fab).show()
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.favoriteMoviesFragment -> {
+                    binding.fab.isVisible = false
+                }
+                else -> {
+                    binding.fab.isVisible = true
+                }
+            }
+
+            binding.fab.setOnClickListener { view ->
+                findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.favoriteMoviesFragment)
+            }
         }
     }
 }

@@ -34,7 +34,7 @@ fun Movies.toUI(): MoviesUI = MoviesUI(
     page = page,
     results = results.map { it.toUI() },
     totalPages = totalPages,
-    totalResults = totalResults
+    totalResults = totalResults,
 )
 
 fun Movies.Result.toUI(): MoviesUI.Result = MoviesUI.Result(

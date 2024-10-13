@@ -15,7 +15,6 @@
         android:clipToPadding="false"
         android:padding="8dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"
         tools:listitem="@layout/item_movie" />
 
     <com.google.android.material.progressindicator.LinearProgressIndicator

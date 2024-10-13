@@ -26,15 +26,25 @@ class MoviesFragment :
     )
 
     override fun initialize() {
+        initRecycler()
+        initTransition()
+        setupRefresh()
+    }
+
+    private fun initRecycler() {
         binding.recyclerMovies.adapter = movieAdapter.withLoadStateFooter(
             footer = MainLoadStateAdapter()
         )
+    }
 
+    private fun initTransition() {
         postponeEnterTransition()
         binding.recyclerMovies.doOnPreDraw {
             startPostponedEnterTransition()
         }
+    }
 
+    private fun setupRefresh() {
         binding.swipeRefresh.setOnRefreshListener {
             movieAdapter.refresh()
         }
@@ -44,7 +54,9 @@ class MoviesFragment :
         viewModel.pagingMovies().collectPaging {
             movieAdapter.submitData(it)
         }
+    }
 
+    override fun observeRequest() {
         collectFlowWithLifeCycleAwareness {
             movieAdapter.loadStateFlow.collectLatest { loadStates ->
                 binding.swipeRefresh.isRefreshing = loadStates.refresh is LoadState.Loading

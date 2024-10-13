@@ -8,15 +8,15 @@ import com.erkan.simplemovieapp.domain.models.Movies
 
 @Entity(tableName = "movies")
 data class MovieEntity(
-    @PrimaryKey val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int,
     val page: Int,
     val totalPages: Int,
-    val totalResults: Int
+    val totalResults: Int,
 )
 
 @Entity(tableName = "movie_results")
 data class MovieResultEntity(
-    @PrimaryKey val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int,
     val adult: Boolean,
     val backdropPath: String?,
     @TypeConverters(GenreIdsConverter::class)
@@ -31,11 +31,11 @@ data class MovieResultEntity(
     val video: Boolean,
     val voteAverage: Double,
     val voteCount: Int,
-    val page: Int // Для связи с MovieEntity
+    val page: Int,
 )
 
-fun MovieResultEntity.toDomain(): Movies.Result {
-    return Movies.Result(
+fun MovieResultEntity.toDomain(): Movies.Result =
+    Movies.Result(
         adult = adult,
         backdropPath = backdropPath,
         genreIds = genreIds,
@@ -51,5 +51,5 @@ fun MovieResultEntity.toDomain(): Movies.Result {
         voteAverage = voteAverage,
         voteCount = voteCount
     )
-}
+
 

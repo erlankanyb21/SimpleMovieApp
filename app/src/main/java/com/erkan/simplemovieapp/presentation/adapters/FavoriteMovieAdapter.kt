@@ -5,33 +5,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.erkan.simplemovieapp.R
 import com.erkan.simplemovieapp.databinding.ItemMovieBinding
-import com.erkan.simplemovieapp.ext.loadImageWithGlide
 import com.erkan.simplemovieapp.ext.toFullImageUrl
 import com.erkan.simplemovieapp.presentation.base.BaseDiffUtil
-import com.erkan.simplemovieapp.presentation.models.MoviesUI
+import com.erkan.simplemovieapp.presentation.models.FavoriteMovieUI
 
-class MovieAdapter(
-    private val onItemClick: (MoviesUI.Result, View) -> Unit,
-) :
-    PagingDataAdapter<MoviesUI.Result, MovieAdapter.AnimeViewHolder>(Companion) {
+class FavoriteMovieAdapter(
+    private val onItemClick: (FavoriteMovieUI, View) -> Unit,
+) : ListAdapter<FavoriteMovieUI, FavoriteMovieAdapter.ViewHolder>(CarouselDiffCallback) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = AnimeViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
         ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
-    override fun onBindViewHolder(holder: AnimeViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         getItem(position)?.let { holder.onBind(it) }
     }
 
-    inner class AnimeViewHolder(private val binding: ItemMovieBinding) :
+    inner class ViewHolder(private val binding: ItemMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
-        fun onBind(data: MoviesUI.Result) {
+        fun onBind(data: FavoriteMovieUI) {
             bindingItems(data)
             checkForOrientation(data)
             binding.imageMovie.transitionName = data.posterPath
@@ -40,7 +37,7 @@ class MovieAdapter(
             }
         }
 
-        private fun bindingItems(data: MoviesUI.Result) = with(binding) {
+        private fun bindingItems(data: FavoriteMovieUI) = with(binding) {
             imageMovie.load(data.posterPath.toFullImageUrl()) {
                 listener { _, _ ->
                     progressBar.isVisible = false
@@ -56,7 +53,7 @@ class MovieAdapter(
             chipRating.text = data.voteAverage.toString().take(3)
         }
 
-        private fun checkForOrientation(data: MoviesUI.Result) {
+        private fun checkForOrientation(data: FavoriteMovieUI) {
             val orientation = binding.root.resources.configuration.orientation
 
             if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -67,12 +64,8 @@ class MovieAdapter(
         }
     }
 
-    companion object : BaseDiffUtil<MoviesUI.Result>(
-        itemsTheSame = { oldItem, newItem ->
-            oldItem.id == newItem.id
-        },
-        contentsTheSame = { oldItem, newItem ->
-            oldItem == newItem
-        }
+    object CarouselDiffCallback : BaseDiffUtil<FavoriteMovieUI>(
+        itemsTheSame = { oldItem, newItem -> oldItem == newItem },
+        contentsTheSame = { oldItem, newItem -> oldItem == newItem }
     )
 }
